@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 400" width="980" height="400" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#444"/>
+    </marker>
+    <marker id="arrRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b3261e"/>
+    </marker>
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2e7d32"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="980" height="400" rx="16" fill="#ffffff"/>
+
+  <!-- Incoming requests -->
+  <text x="150" y="38" text-anchor="middle" font-size="15" fill="#444">Requests</text>
+  <line x1="150" y1="46" x2="150" y2="96" stroke="#444" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- vLLM scheduler -->
+  <rect x="40" y="100" width="220" height="170" rx="12" fill="#e6eef9" stroke="#2b5797" stroke-width="2"/>
+  <text x="150" y="130" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f3f6e">vLLM Scheduler</text>
+  <rect x="65" y="148" width="170" height="36" rx="6" fill="#ffffff" stroke="#2b5797"/>
+  <text x="150" y="171" text-anchor="middle" font-size="14" fill="#1f3f6e">Prefill queue</text>
+  <rect x="65" y="196" width="170" height="36" rx="6" fill="#ffffff" stroke="#2b5797"/>
+  <text x="150" y="219" text-anchor="middle" font-size="14" fill="#1f3f6e">Decode queue</text>
+  <text x="150" y="256" text-anchor="middle" font-size="12" fill="#555">forms batches</text>
+
+  <g transform="translate(20,0)">
+  <!-- Controller -->
+  <rect x="380" y="40" width="300" height="290" rx="12" fill="#e8f4e6" stroke="#2e7d32" stroke-width="2"/>
+  <text x="530" y="70" text-anchor="middle" font-size="18" font-weight="bold" fill="#1b5e20">Energy Controller</text>
+
+  <rect x="405" y="88" width="250" height="62" rx="8" fill="#ffffff" stroke="#2e7d32"/>
+  <text x="530" y="112" text-anchor="middle" font-size="15" font-weight="bold" fill="#1b5e20">Prefill Scheduler</text>
+  <text x="530" y="134" text-anchor="middle" font-size="13" fill="#333">chunk size × GPU clock</text>
+
+  <rect x="405" y="162" width="250" height="62" rx="8" fill="#ffffff" stroke="#2e7d32"/>
+  <text x="530" y="186" text-anchor="middle" font-size="15" font-weight="bold" fill="#1b5e20">Decode Scheduler</text>
+  <text x="530" y="208" text-anchor="middle" font-size="13" fill="#333">microbatch count × GPU clock</text>
+
+  <rect x="405" y="250" width="250" height="60" rx="8" fill="#f7f7f7" stroke="#777" stroke-dasharray="5,4"/>
+  <text x="530" y="274" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Latency / Energy Profile</text>
+  <text x="530" y="295" text-anchor="middle" font-size="12" fill="#555">offline, per (tokens, clock)</text>
+  <line x1="530" y1="248" x2="530" y2="228" stroke="#777" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  </g>
+
+  <!-- Events: vLLM -> controller -->
+  <line x1="262" y1="150" x2="396" y2="150" stroke="#b3261e" stroke-width="2.5" marker-end="url(#arrRed)"/>
+  <text x="329" y="128" text-anchor="middle" font-size="13" font-weight="bold" fill="#b3261e">Events</text>
+  <text x="329" y="143" text-anchor="middle" font-size="11" fill="#b3261e">arrival / completion</text>
+
+  <!-- Actions: controller -> vLLM -->
+  <line x1="398" y1="215" x2="264" y2="215" stroke="#2e7d32" stroke-width="2.5" marker-end="url(#arrGreen)"/>
+  <text x="331" y="234" text-anchor="middle" font-size="12" fill="#2e7d32">chunk size,</text>
+  <text x="331" y="249" text-anchor="middle" font-size="12" fill="#2e7d32"># microbatches</text>
+
+  <g transform="translate(20,0)">
+  <!-- Actions: controller -> GPUs (DVFS) -->
+  <line x1="682" y1="185" x2="756" y2="185" stroke="#2e7d32" stroke-width="2.5" marker-end="url(#arrGreen)"/>
+  <text x="719" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2e7d32">GPU clock</text>
+  <text x="719" y="207" text-anchor="middle" font-size="11" fill="#2e7d32">(DVFS)</text>
+
+  <!-- GPUs -->
+  <rect x="760" y="100" width="160" height="170" rx="12" fill="#f1f1f1" stroke="#555" stroke-width="2"/>
+  <text x="840" y="130" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">GPUs</text>
+  <rect x="782" y="148" width="54" height="40" rx="5" fill="#76b041" stroke="#4a7a24"/>
+  <rect x="844" y="148" width="54" height="40" rx="5" fill="#76b041" stroke="#4a7a24"/>
+  <rect x="782" y="196" width="54" height="40" rx="5" fill="#76b041" stroke="#4a7a24"/>
+  <rect x="844" y="196" width="54" height="40" rx="5" fill="#76b041" stroke="#4a7a24"/>
+  <text x="840" y="258" text-anchor="middle" font-size="12" fill="#555">TP × PP</text>
+
+  </g>
+
+  <!-- Execution path: vLLM -> GPUs -->
+  <path d="M150,272 L150,365 L860,365 L860,274" fill="none" stroke="#444" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="505" y="356" text-anchor="middle" font-size="13" fill="#444">execute batches</text>
+</svg>
